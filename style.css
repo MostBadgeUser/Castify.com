@@ -1,0 +1,176 @@
+/* General Reset */
+body, h1, h2, h3, p, ul, li, a, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic Styling */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #e0e1dd;
+    color: #0d1b2a;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+header {
+    background-color: #1b263b;
+    padding: 20px;
+    color: #e0e1dd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo img {
+    max-height: 50px;
+    cursor: pointer;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Allows wrapping for smaller screens */
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #e0e1dd;
+    text-decoration: none;
+}
+
+header .search-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Push the search bar to the right */
+}
+
+header .search-input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #415a77;
+    margin-right: 5px;
+}
+
+header .search-button {
+    background-color: #415a77;
+    color: #e0e1dd;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.auth-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px; /* Height for the login section */
+}
+
+.auth-container {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #415a77;
+    border-radius: 5px; /* Added rounded corners for a softer look */
+    text-align: center; /* Center content */
+}
+
+.auth-container h2 {
+    color: #1b263b;
+    margin-bottom: 20px;
+}
+
+.login-button, .signup-button, .upload-button {
+    background-color: #1b263b;
+    color: #e0e1dd;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 200px; /* Fixed width for the buttons */
+    margin: 10px 0; /* Spacing between buttons */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline for link */
+    display: inline-block; /* Make the link behave like a button */
+}
+
+.recently-viewed, .recently-watched {
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #415a77;
+    border-radius: 5px; /* Added rounded corners for a softer look */
+}
+
+.recently-viewed h2, .recently-watched h2 {
+    margin-bottom: 15px;
+    color: #1b263b;
+}
+
+.video-thumbnails {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; /* Allows wrapping of video items */
+}
+
+.video-item {
+    background-color: #778da9;
+    text-align: center;
+    border-radius: 5px;
+    color: #e0e1dd;
+    flex: 1 1 calc(33.33% - 10px); /* Adjust to 3 items per row on larger screens */
+    min-width: 250px; /* Minimum width to prevent too small on smaller screens */
+    height: 150px; /* Fixed height for video item */
+    display: flex; /* Enable flexbox for centering */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+}
+
+.video-item p {
+    margin: 0; /* Remove margin from paragraph in video item */
+}
+
+.featured {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+}
+
+.featured-video, .upload {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #415a77;
+    border-radius: 5px; /* Added rounded corners */
+    width: 48%;
+}
+
+.video-frame {
+    background-color: #415a77;
+    color: #e0e1dd;
+    padding: 60px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+footer {
+    background-color: #1b263b;
+    color: #e0e1dd;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
