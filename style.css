@@ -35,7 +35,7 @@ header .logo img {
 header nav {
     display: flex;
     align-items: center;
-    flex-wrap: wrap; /* Allows wrapping for smaller screens */
+    flex-wrap: wrap;
 }
 
 header nav ul {
@@ -55,7 +55,7 @@ header nav ul li a {
 header .search-container {
     display: flex;
     align-items: center;
-    margin-left: auto; /* Push the search bar to the right */
+    margin-left: auto;
 }
 
 header .search-input {
@@ -78,15 +78,15 @@ header .search-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 400px; /* Height for the login section */
+    height: 400px;
 }
 
 .auth-container {
     background-color: #fff;
     padding: 20px;
     border: 1px solid #415a77;
-    border-radius: 5px; /* Added rounded corners for a softer look */
-    text-align: center; /* Center content */
+    border-radius: 5px;
+    text-align: center;
 }
 
 .auth-container h2 {
@@ -94,29 +94,26 @@ header .search-button {
     margin-bottom: 20px;
 }
 
-.login-button, .signup-button, .upload-button {
+.login-button, .signup-button {
     background-color: #1b263b;
     color: #e0e1dd;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
-    width: 200px; /* Fixed width for the buttons */
-    margin: 10px 0; /* Spacing between buttons */
-    text-align: center; /* Center the text */
-    text-decoration: none; /* Remove underline for link */
-    display: inline-block; /* Make the link behave like a button */
+    width: 200px;
+    margin: 10px 0;
 }
 
-.recently-viewed, .recently-watched {
+.recently-viewed {
     background-color: #fff;
     margin-top: 20px;
     padding: 20px;
     border: 1px solid #415a77;
-    border-radius: 5px; /* Added rounded corners for a softer look */
+    border-radius: 5px;
 }
 
-.recently-viewed h2, .recently-watched h2 {
+.recently-viewed h2 {
     margin-bottom: 15px;
     color: #1b263b;
 }
@@ -124,7 +121,7 @@ header .search-button {
 .video-thumbnails {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap; /* Allows wrapping of video items */
+    flex-wrap: wrap;
 }
 
 .video-item {
@@ -132,31 +129,12 @@ header .search-button {
     text-align: center;
     border-radius: 5px;
     color: #e0e1dd;
-    flex: 1 1 calc(33.33% - 10px); /* Adjust to 3 items per row on larger screens */
-    min-width: 250px; /* Minimum width to prevent too small on smaller screens */
-    height: 150px; /* Fixed height for video item */
-    display: flex; /* Enable flexbox for centering */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-}
-
-.video-item p {
-    margin: 0; /* Remove margin from paragraph in video item */
-}
-
-.featured {
+    flex: 1 1 calc(33.33% - 10px);
+    min-width: 250px;
+    height: 150px;
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    flex-wrap: wrap; /* Allow wrapping for smaller screens */
-}
-
-.featured-video, .upload {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #415a77;
-    border-radius: 5px; /* Added rounded corners */
-    width: 48%;
+    justify-content: center;
+    align-items: center;
 }
 
 .video-frame {
@@ -167,10 +145,36 @@ header .search-button {
     border-radius: 5px;
 }
 
+.upload button {
+    background-color: #1b263b;
+    color: #e0e1dd;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
 footer {
     background-color: #1b263b;
     color: #e0e1dd;
     text-align: center;
     padding: 20px;
     margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header, .featured {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .video-thumbnails {
+        flex-direction: column;
+    }
+
+    .video-item {
+        flex: 1 1 100%;
+        height: auto;
+    }
 }
