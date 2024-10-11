@@ -1,5 +1,5 @@
 /* General Reset */
-body, h1, p, form, div, input, button, a {
+body, h1, h2, h3, p, ul, li, a, button {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,92 +9,172 @@ body, h1, p, form, div, input, button, a {
 body {
     font-family: 'Open Sans', sans-serif;
     background-color: #e0e1dd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    color: #0d1b2a;
 }
 
-.login-container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-}
-
-.login-box {
-    background-color: #1b263b;
-    border-radius: 10px;
-    padding: 30px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
-
-.login-header img {
-    width: 150px;
-    margin-bottom: 20px;
-}
-
-.login-header h1 {
-    color: #e0e1dd;
-    margin-bottom: 10px;
-}
-
-.login-header p {
-    color: #778da9;
-    margin-bottom: 20px;
-}
-
-.input-group {
-    margin-bottom: 20px;
-}
-
-.input-group label {
-    display: block;
-    color: #e0e1dd;
-    margin-bottom: 5px;
-    text-align: left;
-}
-
-.input-group input {
-    width: 100%;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 10px;
-    border: 1px solid #415a77;
-    border-radius: 5px;
-    background-color: #778da9;
+}
+
+header {
+    background-color: #1b263b;
+    padding: 20px;
     color: #e0e1dd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.input-group input:focus {
-    outline: none;
-    border-color: #e0e1dd;
+header .logo img {
+    max-height: 50px;
+    cursor: pointer;
 }
 
-.login-btn {
-    width: 100%;
+header nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #e0e1dd;
+    text-decoration: none;
+}
+
+header .search-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+header .search-input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #415a77;
+    margin-right: 5px;
+}
+
+header .search-button {
     background-color: #415a77;
     color: #e0e1dd;
     border: none;
-    padding: 10px;
+    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: 600;
+}
+
+.auth-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+
+.auth-container {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #415a77;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.auth-container h2 {
+    color: #1b263b;
     margin-bottom: 20px;
 }
 
-.login-btn:hover {
-    background-color: #0d1b2a;
-}
-
-.extra-links {
+.login-button, .signup-button {
+    background-color: #1b263b;
     color: #e0e1dd;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 200px;
+    margin: 10px 0;
 }
 
-.extra-links a {
-    text-decoration: none;
+.recently-viewed {
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #415a77;
+    border-radius: 5px;
+}
+
+.recently-viewed h2 {
+    margin-bottom: 15px;
+    color: #1b263b;
+}
+
+.video-thumbnails {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.video-item {
+    background-color: #778da9;
+    text-align: center;
+    border-radius: 5px;
     color: #e0e1dd;
-    margin: 0 5px;
+    flex: 1 1 calc(33.33% - 10px);
+    min-width: 250px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.extra-links a:hover {
-    color: #778da9;
+.video-frame {
+    background-color: #415a77;
+    color: #e0e1dd;
+    padding: 60px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.upload button {
+    background-color: #1b263b;
+    color: #e0e1dd;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+footer {
+    background-color: #1b263b;
+    color: #e0e1dd;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header, .featured {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .video-thumbnails {
+        flex-direction: column;
+    }
+
+    .video-item {
+        flex: 1 1 100%;
+        height: auto;
+    }
 }
