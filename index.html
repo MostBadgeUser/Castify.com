@@ -29,7 +29,7 @@
                 <ul>
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Watch</a></li>
-                    <li><a href="#">Channels</a></li>
+                    <li><a href="https://mostbadgeuser.github.io/Castify_Channels.com/">Channels</a></li>
                     <li><a href="#">Community</a></li>
                 </ul>
                 <div class="search-container">
@@ -81,6 +81,44 @@
             <p>© 2024 Castify - All rights reserved.</p>
         </footer>
     </div>
+
+    <script>
+        // Function to check if the user is logged in
+        function checkLoginStatus() {
+            // Check if the user is logged in (you can replace this with your own login status check)
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+            // If the user is logged in, navigate to the specified URL
+            if (isLoggedIn === 'true') {
+                window.location.href = 'https://mostbadgeuser.github.io/Castify1.com/';
+            }
+        }
+
+        // Call the function to check login status when the page loads
+        window.onload = function() {
+            checkLoginStatus();
+        };
+
+        // Example login function to set login status (you would have your own login logic)
+        function login() {
+            // Perform login logic here (validate user credentials, etc.)
+            
+            // If login is successful
+            localStorage.setItem('isLoggedIn', 'true');
+            
+            // Navigate to the main page
+            window.location.href = 'https://mostbadgeuser.github.io/Castify1.com/';
+        }
+
+        // Example logout function to clear login status (optional)
+        function logout() {
+            // Clear the login status
+            localStorage.removeItem('isLoggedIn');
+            
+            // Optionally, navigate to a different page
+            window.location.href = 'https://mostbadgeuser.github.io/Castify.com/';
+        }
+    </script>
 </body>
 </html>
 <!-- partial -->
