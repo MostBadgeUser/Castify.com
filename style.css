@@ -1,187 +1,73 @@
-/* General Reset */
-body, h1, h2, h3, p, ul, li, a, button {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Basic Styling */
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: #e0e1dd;
-    color: #0d1b2a;
+    background-color: #0d1b2a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px;
-}
-
-header {
+    width: 100%;
+    max-width: 400px;
     background-color: #1b263b;
-    padding: 20px;
-    color: #e0e1dd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header .logo img {
-    max-height: 50px;
-    cursor: pointer;
-}
-
-header nav {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-header nav ul {
-    display: flex;
-    list-style: none;
-}
-
-header nav ul li {
-    margin: 0 15px;
-}
-
-header nav ul li a {
-    color: #e0e1dd;
-    text-decoration: none;
-}
-
-header .search-container {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-}
-
-header .search-input {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #415a77;
-    margin-right: 5px;
-}
-
-header .search-button {
-    background-color: #415a77;
-    color: #e0e1dd;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.auth-section {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 400px;
-    margin-top: 20px;
-}
-
-.auth-container {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #415a77;
-    border-radius: 5px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.login-container, .signup-container {
-    margin: 10px 0;
+.header img {
+    width: 150px;
+    margin-bottom: 20px;
 }
 
-.auth-container h2 {
-    color: #1b263b;
+.header h1 {
+    color: #e0e1dd;
     margin-bottom: 10px;
 }
 
-.auth-container input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #415a77;
-    border-radius: 5px;
-}
-
-.auth-button {
-    background-color: #1b263b;
-    color: #e0e1dd;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 100%;
-}
-
-.separator {
-    margin: 20px 0;
-    font-size: 18px;
-    color: #1b263b;
-}
-
-.recently-viewed {
-    background-color: #fff;
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #415a77;
-    border-radius: 5px;
-}
-
-.recently-viewed h2 {
+.input-group {
     margin-bottom: 15px;
-    color: #1b263b;
 }
 
-.video-thumbnails {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.video-item {
-    background-color: #778da9;
-    text-align: center;
-    border-radius: 5px;
+.input-group label {
+    display: block;
     color: #e0e1dd;
-    flex: 1 1 calc(33.33% - 10px);
-    min-width: 250px;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-bottom: 5px;
 }
 
-.featured {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.featured-video, .upload {
-    background-color: #fff;
-    padding: 20px;
+.input-group input {
+    width: 100%;
+    padding: 10px;
     border: 1px solid #415a77;
     border-radius: 5px;
-    flex: 1;
-    margin: 0 10px;
-}
-
-.featured h3, .upload h3 {
-    color: #1b263b;
-}
-
-footer {
-    background-color: #1b263b;
+    background-color: #778da9;
     color: #e0e1dd;
-    text-align: center;
-    padding: 15px;
-    position: relative;
-    bottom: 0;
+}
+
+button {
     width: 100%;
+    padding: 10px;
+    background-color: #415a77;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.extra-links {
+    margin-top: 10px;
+    color: #e0e1dd;
+}
+
+#registerContainer {
+    display: none;
     margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0d1b2a;
 }
