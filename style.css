@@ -77,8 +77,9 @@ header .search-button {
 .auth-section {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: 400px;
+    margin-top: 20px;
 }
 
 .auth-container {
@@ -87,22 +88,40 @@ header .search-button {
     border: 1px solid #415a77;
     border-radius: 5px;
     text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-container, .signup-container {
+    margin: 10px 0;
 }
 
 .auth-container h2 {
     color: #1b263b;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-.login-button, .signup-button {
+.auth-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #415a77;
+    border-radius: 5px;
+}
+
+.auth-button {
     background-color: #1b263b;
     color: #e0e1dd;
     border: none;
-    padding: 10px 20px;
+    padding: 10px;
     cursor: pointer;
     border-radius: 5px;
-    width: 200px;
-    margin: 10px 0;
+    width: 100%;
+}
+
+.separator {
+    margin: 20px 0;
+    font-size: 18px;
+    color: #1b263b;
 }
 
 .recently-viewed {
@@ -137,44 +156,32 @@ header .search-button {
     align-items: center;
 }
 
-.video-frame {
-    background-color: #415a77;
-    color: #e0e1dd;
-    padding: 60px;
-    text-align: center;
-    border-radius: 5px;
+.featured {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
-.upload button {
-    background-color: #1b263b;
-    color: #e0e1dd;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+.featured-video, .upload {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #415a77;
     border-radius: 5px;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.featured h3, .upload h3 {
+    color: #1b263b;
 }
 
 footer {
     background-color: #1b263b;
     color: #e0e1dd;
     text-align: center;
-    padding: 20px;
+    padding: 15px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
     margin-top: 20px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    header, .featured {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .video-thumbnails {
-        flex-direction: column;
-    }
-
-    .video-item {
-        flex: 1 1 100%;
-        height: auto;
-    }
 }
