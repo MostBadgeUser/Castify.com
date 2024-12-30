@@ -1,136 +1,148 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - Castify Menu</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>CodePen - Castify Menu</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Castify - Broadcast Your Passion</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Castify - Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js"></script>
 </head>
 <body>
-    <div class="container">
-        <!-- Header Section -->
-        <header>
-            <div class="logo">
-                <img src="https://i.ibb.co/nCqS9g0/rushfordclean-1.png" alt="Castify Logo" onclick="location.reload();">
-            </div>
-            <nav class="menu">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Watch</a></li>
-                    <li><a href="https://mostbadgeuser.github.io/Castify_Channels.com/">Channels</a></li>
-                    <li><a href="#">Community</a></li>
-                </ul>
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search...">
-                    <button class="search-button"><i class="fas fa-search"></i></button>
-                </div>
-            </nav>
-        </header>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="https://i.ibb.co/nCqS9g0/rushfordclean-1.png" id="logo-img" alt="Castify Logo" onclick="reloadPage()">
+      </div>
+      <ul class="nav-links">
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#channels">Channels</a></li>
+        <li><a href="#newest">Newest</a></li>
+        <li><a href="#community">Community</a></li>
+      </ul>
+      <div class="search-bar">
+        <input type="text" placeholder="Search...">
+        <button>🔍</button>
+      </div>
+      <div class="user-actions">
+        <!-- Кнопка уведомлений появляется только после регистрации -->
+        <img src="https://cdn.pixabay.com/photo/2020/10/31/06/28/youtube-bell-icon-5700370_1280.png" id="notification-icon" alt="Notifications" class="icon" onclick="toggleNotifications()" style="display:none;">
+        <span id="notification-count" class="hidden">0</span>
+        <div id="notification-popup" class="hidden">
+          <ul id="notifications-list">
+            <li>No notifications</li>
+          </ul>
+        </div>
+        <div id="user-profile" class="hidden">
+          <span id="username-display"></span> | <a href="profile.html">Profile</a>
+        </div>
+        <button id="login-button" onclick="toggleLoginState()">Login / Register</button>
+        <!-- Кнопка для выложить видео, скрыта, если видео нет -->
+        <button id="upload-button" class="hidden" onclick="uploadVideo()">Upload Video</button>
+      </div>
+    </nav>
+  </header>
 
-        <!-- Authentication Section -->
-        <section class="auth-section">
-            <div class="auth-container">
-                <h2>Welcome to Castify</h2>
-                <!-- Added Registrate Button -->
-                <button class="register-button" onclick="window.location.href='https://mostbadgeuser.github.io/Castify_SignUp.com/';">Registrate</button>
-            </div>
-        </section>
+  <main>
+    <div id="left-ad" class="ad-banner left-ad hidden"></div>
+    <section id="welcome-section">
+      <h1>Welcome to Castify</h1>
+      <p>Your hub for discovering and sharing amazing videos.</p>
+    </section>
+    <section id="content">
+      <h2>Recommended for You</h2>
+      <div id="recommendations" class="recommendations-list"></div>
+    </section>
+    <div id="right-ad" class="ad-banner right-ad hidden"></div>
+  </main>
 
-        <!-- Recently Viewed Section -->
-        <section class="recently-viewed">
-            <h2>Recently Viewed Videos</h2>
-            <div class="video-thumbnails">
-                <div class="video-item"><p>Video 1</p></div>
-                <div class="video-item"><p>Video 2</p></div>
-                <div class="video-item"><p>Video 3</p></div>
-                <div class="video-item"><p>Video 4</p></div>
-            </div>
-        </section>
+  <footer>
+    <p>© 2024 Castify. All rights reserved.</p>
+  </footer>
 
-        <!-- Featured Video Section -->
-        <section class="featured">
-            <div class="featured-video">
-                <h3>Featured Video</h3>
-                <div class="video-frame">
-                    <p>Metamorphosis</p>
-                </div>
-            </div>
-            <div class="upload">
-                <h3>Upload</h3>
-                <p>Share your video with the world!</p>
-                <button onclick="window.location.href='https://mostbadgeuser.github.io/Castify_Upload.com/';">Upload Now</button>
-            </div>
-        </section>
+  <script src="app.js"></script>
+  <script>
+    // Параметры для Firebase (если используется Firebase для авторизации и хранения контента)
+    const firebaseConfig = {
+      apiKey: "your-api-key",
+      authDomain: "your-auth-domain",
+      projectId: "your-project-id",
+      storageBucket: "your-storage-bucket",
+      messagingSenderId: "your-messaging-sender-id",
+      appId: "your-app-id"
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-        <!-- Footer Section -->
-        <footer>
-            <p>© 2024 Castify - All rights reserved.</p>
-        </footer>
-    </div>
+    // Функция для установки случайного фона
+    function setRandomBackground() {
+      fetch('https://api.unsplash.com/photos/random?client_id=-3QG_HoJ0tTBVRZ-pJRfAx7PCIYP_K_l4flTXErK1tg')
+        .then(response => response.json())
+        .then(data => {
+          const imageUrl = data[0].urls.full;
+          document.body.style.backgroundImage = `url(${imageUrl})`;
+          document.body.style.backgroundSize = 'cover';
+          document.body.style.backgroundPosition = 'center';
+        })
+        .catch(error => {
+          console.error("Ошибка при загрузке фона:", error);
+        });
+    }
 
-    <script>
-        // Removed the login check to prevent redirection on load
-        // Check Registration Date
-        function checkRegistrationDate() {
-            const registrationDate = localStorage.getItem('registrationDate');
-            if (registrationDate) {
-                const registeredOn = new Date(registrationDate);
-                const currentDate = new Date();
-                const timeDifference = currentDate - registeredOn;
-                const daysSinceRegistration = timeDifference / (1000 * 3600 * 24);
+    // Функция для показа / скрытия уведомлений
+    function toggleNotifications() {
+      const notificationsPopup = document.getElementById("notification-popup");
+      notificationsPopup.classList.toggle("hidden");
+      document.getElementById("notification-count").classList.add("hidden"); // Скрыть счетчик уведомлений
+    }
 
-                // Check if 13 days have passed
-                if (daysSinceRegistration >= 13) {
-                    // Redirect to the specified URL
-                    window.location.href = 'https://mostbadgeuser.github.io/Castify1.com/';
-                }
-            }
+    // Функция для перезагрузки страницы при клике на логотип
+    function reloadPage() {
+      location.reload();
+    }
+
+    // Функция для переключения состояния входа / регистрации
+    function toggleLoginState() {
+      if (auth.currentUser) {
+        // Если пользователь уже вошел, скрываем кнопку входа
+        auth.signOut();
+        document.getElementById("login-button").textContent = "Login / Register";
+        document.getElementById("notification-icon").style.display = "none";
+        document.getElementById("upload-button").classList.add("hidden");
+      } else {
+        // Если пользователь не вошел, показываем кнопку входа
+        auth.signInAnonymously();
+        document.getElementById("login-button").textContent = "Logout";
+      }
+    }
+
+    // Функция для загрузки видео (пока имитируем)
+    function uploadVideo() {
+      // Здесь можно добавить логику для загрузки видео
+      console.log("Upload video function triggered.");
+      // Пример: обновить состояние видео на платформе
+      checkForVideos();
+    }
+
+    // Проверка наличия видео
+    function checkForVideos() {
+      db.collection("videos").get().then(snapshot => {
+        if (snapshot.empty) {
+          // Если нет видео, скрываем кнопку "Upload Video"
+          document.getElementById("upload-button").classList.add("hidden");
+        } else {
+          // Если есть видео, показываем кнопку "Upload Video"
+          document.getElementById("upload-button").classList.remove("hidden");
         }
+      });
+    }
 
-        // Call the function to check registration date when the page loads
-        window.onload = function() {
-            checkRegistrationDate(); // Check the registration date
-        };
-
-        // Example registration function
-        function registerUser(username, email, password) {
-            // Your Firebase registration logic here
-            // After successful registration, save the registration date
-            const registrationDate = new Date().toISOString(); // Current date in ISO format
-            localStorage.setItem('registrationDate', registrationDate);
-        }
-    </script>
-</body>
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
-
-</body>
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
-
+    // Загружаем случайный фон при загрузке страницы
+    window.onload = () => {
+      setRandomBackground();
+      checkForVideos();
+    };
+  </script>
 </body>
 </html>

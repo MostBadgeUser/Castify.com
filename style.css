@@ -1,187 +1,265 @@
-/* General Reset */
-body, h1, h2, h3, p, ul, li, a, button {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Основные стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Basic Styling */
 body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #e0e1dd;
-    color: #0d1b2a;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  height: 100vh;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
+/* Стиль для header */
 header {
-    background-color: #1b263b;
-    padding: 20px;
-    color: #e0e1dd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
 }
 
-header .logo img {
-    max-height: 50px;
-    cursor: pointer;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-header nav {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+.navbar .logo img {
+  height: 40px;
+  cursor: pointer;
 }
 
-header nav ul {
-    display: flex;
-    list-style: none;
+.navbar .nav-links {
+  display: flex;
+  list-style-type: none;
 }
 
-header nav ul li {
-    margin: 0 15px;
+.navbar .nav-links li {
+  margin-right: 20px;
 }
 
-header nav ul li a {
-    color: #e0e1dd;
-    text-decoration: none;
+.navbar .nav-links li a {
+  color: #fff;
+  font-size: 18px;
 }
 
-header .search-container {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
+.navbar .search-bar input {
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  margin-right: 10px;
 }
 
-header .search-input {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #415a77;
-    margin-right: 5px;
+.navbar .search-bar button {
+  background-color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
-header .search-button {
-    background-color: #415a77;
-    color: #e0e1dd;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+.navbar .user-actions {
+  display: flex;
+  align-items: center;
 }
 
-.auth-section {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 400px;
-    margin-top: 20px;
+.navbar .user-actions button {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
 }
 
-.auth-container {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #415a77;
-    border-radius: 5px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.navbar .user-actions .icon {
+  width: 30px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
-.login-container, .signup-container {
-    margin: 10px 0;
+.hidden {
+  display: none;
 }
 
-.auth-container h2 {
-    color: #1b263b;
-    margin-bottom: 10px;
+#notification-popup {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  display: none;
 }
 
-.auth-container input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #415a77;
-    border-radius: 5px;
+#notifications-list {
+  list-style-type: none;
+  padding: 0;
 }
 
-.auth-button {
-    background-color: #1b263b;
-    color: #e0e1dd;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    width: 100%;
+#notifications-list li {
+  padding: 10px;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-.separator {
-    margin: 20px 0;
-    font-size: 18px;
-    color: #1b263b;
+#notifications-list li:last-child {
+  border-bottom: none;
 }
 
-.recently-viewed {
-    background-color: #fff;
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #415a77;
-    border-radius: 5px;
+#user-profile {
+  margin-left: 10px;
+  color: #fff;
 }
 
-.recently-viewed h2 {
-    margin-bottom: 15px;
-    color: #1b263b;
+#user-profile a {
+  color: #fff;
+  text-decoration: underline;
 }
 
-.video-thumbnails {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+#content {
+  padding: 30px;
 }
 
-.video-item {
-    background-color: #778da9;
-    text-align: center;
-    border-radius: 5px;
-    color: #e0e1dd;
-    flex: 1 1 calc(33.33% - 10px);
-    min-width: 250px;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.recommendations-list {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.featured {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+.recommendations-list div {
+  width: 250px;
+  margin: 15px;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.featured-video, .upload {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #415a77;
-    border-radius: 5px;
-    flex: 1;
-    margin: 0 10px;
+.recommendations-list div img {
+  width: 100%;
+  border-radius: 10px;
 }
 
-.featured h3, .upload h3 {
-    color: #1b263b;
+.recommendations-list div h3 {
+  font-size: 18px;
+  margin-top: 10px;
 }
 
+.recommendations-list div p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Кнопка "Upload Video" скрыта по умолчанию */
+#upload-button {
+  background-color: #f39c12;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+#upload-button:hover {
+  background-color: #e67e22;
+}
+
+/* Стиль для фона */
+body {
+  background-color: #f4f4f4;
+  background-image: url(''); /* Фон будет изменяться динамически */
+  background-size: cover;
+  background-position: center;
+}
+
+/* Стиль для раздела рекламы */
+.ad-banner {
+  background-color: #e1e1e1;
+  height: 300px;
+  margin-top: 20px;
+}
+
+.left-ad {
+  float: left;
+  width: 25%;
+  margin-right: 20px;
+}
+
+.right-ad {
+  float: right;
+  width: 25%;
+  margin-left: 20px;
+}
+
+#welcome-section {
+  text-align: center;
+  padding: 50px;
+  background-color: #fff;
+  margin: 30px 0;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#welcome-section h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+#welcome-section p {
+  font-size: 18px;
+  color: #666;
+}
+
+/* Стиль для футера */
 footer {
-    background-color: #1b263b;
-    color: #e0e1dd;
-    text-align: center;
-    padding: 15px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 20px;
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
 }
+
+footer p {
+  font-size: 14px;
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+  .navbar .nav-links {
+    display: none;
+  }
+
+  .navbar .user-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar .user-actions button {
+    margin-left: 0;
+  }
+
+  .recommendations-list {
+    flex-direction: column;
+  }
+
+  .left-ad, .right-ad {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  #upload-button {
+    width: 100%;
+  }
+}
+ 
