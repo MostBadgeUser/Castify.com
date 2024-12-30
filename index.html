@@ -13,13 +13,17 @@
   <!-- reCAPTCHA v2 API -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
-    /* Скрываем главный контент до прохождения reCAPTCHA */
+    /* Скрываем основной контент до прохождения reCAPTCHA */
     #main-content {
       display: none;
     }
+    /* Центрируем контейнер с reCAPTCHA */
     #recaptcha-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       text-align: center;
-      margin-top: 20%;
     }
   </style>
 </head>
