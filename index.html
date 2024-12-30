@@ -12,56 +12,76 @@
   <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js"></script>
   <!-- reCAPTCHA v2 API -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    /* Скрываем главный контент до прохождения reCAPTCHA */
+    #main-content {
+      display: none;
+    }
+    #recaptcha-container {
+      text-align: center;
+      margin-top: 20%;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">
-        <img src="https://i.ibb.co/nCqS9g0/rushfordclean-1.png" id="logo-img" alt="Castify Logo" onclick="reloadPage()">
-      </div>
-      <ul class="nav-links">
-        <li><a href="#videos">Videos</a></li>
-        <li><a href="#channels">Channels</a></li>
-        <li><a href="#newest">Newest</a></li>
-        <li><a href="#community">Community</a></li>
-      </ul>
-      <div class="search-bar">
-        <input type="text" placeholder="Search...">
-        <button>🔍</button>
-      </div>
-      <div class="user-actions">
-        <img src="https://cdn.pixabay.com/photo/2020/10/31/06/28/youtube-bell-icon-5700370_1280.png" id="notification-icon" alt="Notifications" class="icon" onclick="toggleNotifications()" style="display:none;">
-        <span id="notification-count" class="hidden">0</span>
-        <div id="notification-popup" class="hidden">
-          <ul id="notifications-list">
-            <li>No notifications</li>
-          </ul>
-        </div>
-        <div id="user-profile" class="hidden">
-          <span id="username-display"></span> | <a href="profile.html">Profile</a>
-        </div>
-        <button id="login-button" onclick="toggleLoginState()">Login / Register</button>
-        <button id="upload-button" class="hidden" onclick="uploadVideo()">Upload Video</button>
-      </div>
-    </nav>
-  </header>
+  <!-- Контейнер для reCAPTCHA -->
+  <div id="recaptcha-container">
+    <h2>Please verify that you're not a robot</h2>
+    <div class="g-recaptcha" data-sitekey="6LdV16kqAAAAAI4x1RVMy9oBCbJkGG42Q1Wteoll"></div>
+    <button onclick="verifyRecaptcha()">Verify</button>
+  </div>
 
-  <main>
-    <div id="left-ad" class="ad-banner left-ad hidden"></div>
-    <section id="welcome-section">
-      <h1>Welcome to Castify</h1>
-      <p>Your hub for discovering and sharing amazing videos.</p>
-    </section>
-    <section id="content">
-      <h2>Recommended for You</h2>
-      <div id="recommendations" class="recommendations-list"></div>
-    </section>
-    <div id="right-ad" class="ad-banner right-ad hidden"></div>
-  </main>
+  <!-- Основной контент страницы (скрыт до прохождения reCAPTCHA) -->
+  <div id="main-content">
+    <header>
+      <nav class="navbar">
+        <div class="logo">
+          <img src="https://i.ibb.co/nCqS9g0/rushfordclean-1.png" id="logo-img" alt="Castify Logo" onclick="reloadPage()">
+        </div>
+        <ul class="nav-links">
+          <li><a href="#videos">Videos</a></li>
+          <li><a href="#channels">Channels</a></li>
+          <li><a href="#newest">Newest</a></li>
+          <li><a href="#community">Community</a></li>
+        </ul>
+        <div class="search-bar">
+          <input type="text" placeholder="Search...">
+          <button>🔍</button>
+        </div>
+        <div class="user-actions">
+          <img src="https://cdn.pixabay.com/photo/2020/10/31/06/28/youtube-bell-icon-5700370_1280.png" id="notification-icon" alt="Notifications" class="icon" onclick="toggleNotifications()" style="display:none;">
+          <span id="notification-count" class="hidden">0</span>
+          <div id="notification-popup" class="hidden">
+            <ul id="notifications-list">
+              <li>No notifications</li>
+            </ul>
+          </div>
+          <div id="user-profile" class="hidden">
+            <span id="username-display"></span> | <a href="profile.html">Profile</a>
+          </div>
+          <button id="login-button" onclick="toggleLoginState()">Login / Register</button>
+          <button id="upload-button" class="hidden" onclick="uploadVideo()">Upload Video</button>
+        </div>
+      </nav>
+    </header>
 
-  <footer>
-    <p>© 2024 Castify. All rights reserved.</p>
-  </footer>
+    <main>
+      <div id="left-ad" class="ad-banner left-ad hidden"></div>
+      <section id="welcome-section">
+        <h1>Welcome to Castify</h1>
+        <p>Your hub for discovering and sharing amazing videos.</p>
+      </section>
+      <section id="content">
+        <h2>Recommended for You</h2>
+        <div id="recommendations" class="recommendations-list"></div>
+      </section>
+      <div id="right-ad" class="ad-banner right-ad hidden"></div>
+    </main>
+
+    <footer>
+      <p>© 2024 Castify. All rights reserved.</p>
+    </footer>
+  </div>
 
   <script src="app.js"></script>
   <script>
@@ -81,18 +101,17 @@
     const db = firebase.firestore();
     const storage = firebase.storage();
 
-    // Function to get reCAPTCHA token
-    function getRecaptchaToken() {
-      grecaptcha.execute('6LdV16kqAAAAAI4x1RVMy9oBCbJkGG42Q1Wteoll', { action: 'login' })
-        .then(function(token) {
-          handleLoginWithRecaptcha(token); // Handle the login with the token
-        })
-        .catch(function(error) {
-          console.error('Error with reCAPTCHA:', error);
-        });
+    // Функция для проверки reCAPTCHA
+    function verifyRecaptcha() {
+      const recaptchaResponse = grecaptcha.getResponse();
+      if (recaptchaResponse.length === 0) {
+        alert("Please complete the CAPTCHA.");
+        return;
+      }
+      handleLoginWithRecaptcha(recaptchaResponse); // Если CAPTCHA пройдена, продолжим
     }
 
-    // Logic to toggle login state
+    // Логика для смены состояния входа
     function toggleLoginState() {
       if (auth.currentUser) {
         auth.signOut();
@@ -100,11 +119,11 @@
         document.getElementById("notification-icon").style.display = "none";
         document.getElementById("upload-button").classList.add("hidden");
       } else {
-        getRecaptchaToken();  // Get reCAPTCHA token for secure login
+        getRecaptchaToken();  // Получаем reCAPTCHA для безопасного входа
       }
     }
 
-    // Handling login with reCAPTCHA token
+    // Логика входа с использованием reCAPTCHA токена
     function handleLoginWithRecaptcha(token) {
       const credential = firebase.auth.GoogleAuthProvider.credential(null, token);
       auth.signInWithCredential(credential).then((userCredential) => {
@@ -112,17 +131,16 @@
         document.getElementById("login-button").textContent = "Logout";
         document.getElementById("notification-icon").style.display = "block";
         document.getElementById("upload-button").classList.remove("hidden");
+        
+        // После прохождения CAPTCHA показываем основной контент
+        document.getElementById("recaptcha-container").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
       }).catch((error) => {
         console.error("Error logging in:", error);
       });
     }
 
-    // Video upload simulation (currently only logs the action)
-    function uploadVideo() {
-      console.log("Upload video function triggered.");
-    }
-
-    // Checking for videos in the database
+    // Проверка наличия видео в базе данных
     function checkForVideos() {
       db.collection("videos").get().then(snapshot => {
         if (snapshot.empty) {
@@ -133,13 +151,10 @@
       });
     }
 
-    // When the page loads
+    // Когда страница загружается
     window.onload = () => {
       checkForVideos();
     };
   </script>
-
-  <!-- reCAPTCHA Widget -->
-  <div class="g-recaptcha" data-sitekey="6LdV16kqAAAAAI4x1RVMy9oBCbJkGG42Q1Wteoll"></div>
 </body>
 </html>
