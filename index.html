@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Castify </title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -123,23 +113,18 @@
         return;
       }
 
+      // Если reCAPTCHA пройдена, скрыть капчу и показать основной контент
       console.log("reCAPTCHA completed: " + recaptchaResponse);  // Добавим вывод для отладки
-      handleLoginWithRecaptcha(recaptchaResponse); // Если CAPTCHA пройдена, продолжаем
+
+      // Скрываем reCAPTCHA и показываем основной контент
+      document.getElementById("recaptcha-container").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+      
+      // Можно добавить обработку токена здесь, если требуется аутентификация с Firebase
+      handleLoginWithRecaptcha(recaptchaResponse); 
     }
 
-    // Логика для смены состояния входа
-    function toggleLoginState() {
-      if (auth.currentUser) {
-        auth.signOut();
-        document.getElementById("login-button").textContent = "Login / Register";
-        document.getElementById("notification-icon").style.display = "none";
-        document.getElementById("upload-button").classList.add("hidden");
-      } else {
-        getRecaptchaToken();  // Получаем reCAPTCHA для безопасного входа
-      }
-    }
-
-    // Логика входа с использованием reCAPTCHA токена
+    // Логика для входа с использованием reCAPTCHA токена
     function handleLoginWithRecaptcha(token) {
       const credential = firebase.auth.GoogleAuthProvider.credential(null, token);
       auth.signInWithCredential(credential).then((userCredential) => {
@@ -147,10 +132,6 @@
         document.getElementById("login-button").textContent = "Logout";
         document.getElementById("notification-icon").style.display = "block";
         document.getElementById("upload-button").classList.remove("hidden");
-
-        // После прохождения CAPTCHA показываем основной контент
-        document.getElementById("recaptcha-container").style.display = "none";
-        document.getElementById("main-content").style.display = "block";
       }).catch((error) => {
         console.error("Error logging in:", error);
       });
@@ -172,10 +153,5 @@
       checkForVideos();
     };
   </script>
-</body>
-</html>
-<!-- partial -->
-  <script src='https://www.google.com/recaptcha/api.js'></script><script  src="./script.js"></script>
-
 </body>
 </html>
