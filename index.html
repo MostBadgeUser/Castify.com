@@ -1,22 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Untitled</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Castify - Home</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- Firebase JS SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js"></script>
+  <!-- reCAPTCHA v2 API -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
   <header>
@@ -35,7 +30,6 @@
         <button>🔍</button>
       </div>
       <div class="user-actions">
-        <!-- Кнопка уведомлений появляется только после регистрации -->
         <img src="https://cdn.pixabay.com/photo/2020/10/31/06/28/youtube-bell-icon-5700370_1280.png" id="notification-icon" alt="Notifications" class="icon" onclick="toggleNotifications()" style="display:none;">
         <span id="notification-count" class="hidden">0</span>
         <div id="notification-popup" class="hidden">
@@ -47,7 +41,6 @@
           <span id="username-display"></span> | <a href="profile.html">Profile</a>
         </div>
         <button id="login-button" onclick="toggleLoginState()">Login / Register</button>
-        <!-- Кнопка для выложить видео, скрыта, если видео нет -->
         <button id="upload-button" class="hidden" onclick="uploadVideo()">Upload Video</button>
       </div>
     </nav>
@@ -72,92 +65,81 @@
 
   <script src="app.js"></script>
   <script>
-    // Параметры для Firebase (если используется Firebase для авторизации и хранения контента)
+    // Firebase Configuration
     const firebaseConfig = {
-      apiKey: "your-api-key",
-      authDomain: "your-auth-domain",
-      projectId: "your-project-id",
-      storageBucket: "your-storage-bucket",
-      messagingSenderId: "your-messaging-sender-id",
-      appId: "your-app-id"
+      apiKey: "AIzaSyCT0puD2gqEj4EYoeC5HtXYI95InuX4z9Q",
+      authDomain: "castify-5c0b6.firebaseapp.com",
+      projectId: "castify-5c0b6",
+      storageBucket: "castify-5c0b6.appspot.com",
+      messagingSenderId: "897995118693",
+      appId: "1:897995118693:web:708006eb85fdd77ab5ce8c"
     };
+
+    // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
+    const storage = firebase.storage();
 
-    // Функция для установки случайного фона
-    function setRandomBackground() {
-      fetch('https://api.unsplash.com/photos/random?client_id=-3QG_HoJ0tTBVRZ-pJRfAx7PCIYP_K_l4flTXErK1tg')
-        .then(response => response.json())
-        .then(data => {
-          const imageUrl = data[0].urls.full;
-          document.body.style.backgroundImage = `url(${imageUrl})`;
-          document.body.style.backgroundSize = 'cover';
-          document.body.style.backgroundPosition = 'center';
+    // Function to get reCAPTCHA token
+    function getRecaptchaToken() {
+      grecaptcha.execute('6LdV16kqAAAAAI4x1RVMy9oBCbJkGG42Q1Wteoll', { action: 'login' })
+        .then(function(token) {
+          handleLoginWithRecaptcha(token); // Handle the login with the token
         })
-        .catch(error => {
-          console.error("Ошибка при загрузке фона:", error);
+        .catch(function(error) {
+          console.error('Error with reCAPTCHA:', error);
         });
     }
 
-    // Функция для показа / скрытия уведомлений
-    function toggleNotifications() {
-      const notificationsPopup = document.getElementById("notification-popup");
-      notificationsPopup.classList.toggle("hidden");
-      document.getElementById("notification-count").classList.add("hidden"); // Скрыть счетчик уведомлений
-    }
-
-    // Функция для перезагрузки страницы при клике на логотип
-    function reloadPage() {
-      location.reload();
-    }
-
-    // Функция для переключения состояния входа / регистрации
+    // Logic to toggle login state
     function toggleLoginState() {
       if (auth.currentUser) {
-        // Если пользователь уже вошел, скрываем кнопку входа
         auth.signOut();
         document.getElementById("login-button").textContent = "Login / Register";
         document.getElementById("notification-icon").style.display = "none";
         document.getElementById("upload-button").classList.add("hidden");
       } else {
-        // Если пользователь не вошел, показываем кнопку входа
-        auth.signInAnonymously();
-        document.getElementById("login-button").textContent = "Logout";
+        getRecaptchaToken();  // Get reCAPTCHA token for secure login
       }
     }
 
-    // Функция для загрузки видео (пока имитируем)
-    function uploadVideo() {
-      // Здесь можно добавить логику для загрузки видео
-      console.log("Upload video function triggered.");
-      // Пример: обновить состояние видео на платформе
-      checkForVideos();
+    // Handling login with reCAPTCHA token
+    function handleLoginWithRecaptcha(token) {
+      const credential = firebase.auth.GoogleAuthProvider.credential(null, token);
+      auth.signInWithCredential(credential).then((userCredential) => {
+        console.log("User logged in:", userCredential.user);
+        document.getElementById("login-button").textContent = "Logout";
+        document.getElementById("notification-icon").style.display = "block";
+        document.getElementById("upload-button").classList.remove("hidden");
+      }).catch((error) => {
+        console.error("Error logging in:", error);
+      });
     }
 
-    // Проверка наличия видео
+    // Video upload simulation (currently only logs the action)
+    function uploadVideo() {
+      console.log("Upload video function triggered.");
+    }
+
+    // Checking for videos in the database
     function checkForVideos() {
       db.collection("videos").get().then(snapshot => {
         if (snapshot.empty) {
-          // Если нет видео, скрываем кнопку "Upload Video"
           document.getElementById("upload-button").classList.add("hidden");
         } else {
-          // Если есть видео, показываем кнопку "Upload Video"
           document.getElementById("upload-button").classList.remove("hidden");
         }
       });
     }
 
-    // Загружаем случайный фон при загрузке страницы
+    // When the page loads
     window.onload = () => {
-      setRandomBackground();
       checkForVideos();
     };
   </script>
-</body>
-</html>
-<!-- partial -->
-  <script  src="./script.js"></script>
 
+  <!-- reCAPTCHA Widget -->
+  <div class="g-recaptcha" data-sitekey="6LdV16kqAAAAAI4x1RVMy9oBCbJkGG42Q1Wteoll"></div>
 </body>
 </html>
