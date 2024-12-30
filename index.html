@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Castify </title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -112,7 +122,9 @@
         alert("Please complete the CAPTCHA.");
         return;
       }
-      handleLoginWithRecaptcha(recaptchaResponse); // Если CAPTCHA пройдена, продолжим
+
+      console.log("reCAPTCHA completed: " + recaptchaResponse);  // Добавим вывод для отладки
+      handleLoginWithRecaptcha(recaptchaResponse); // Если CAPTCHA пройдена, продолжаем
     }
 
     // Логика для смены состояния входа
@@ -135,7 +147,7 @@
         document.getElementById("login-button").textContent = "Logout";
         document.getElementById("notification-icon").style.display = "block";
         document.getElementById("upload-button").classList.remove("hidden");
-        
+
         // После прохождения CAPTCHA показываем основной контент
         document.getElementById("recaptcha-container").style.display = "none";
         document.getElementById("main-content").style.display = "block";
@@ -160,5 +172,10 @@
       checkForVideos();
     };
   </script>
+</body>
+</html>
+<!-- partial -->
+  <script src='https://www.google.com/recaptcha/api.js'></script><script  src="./script.js"></script>
+
 </body>
 </html>
