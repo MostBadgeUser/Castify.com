@@ -11,7 +11,55 @@ const firebaseConfig = {
 
 // Инициализация Firebase
 firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 const db = firebase.firestore();
+
+// Проверка состояния авторизации и извлечение данных пользователя
+auth.onAuthStateChanged(async (user) => {
+    const userActions = document.querySelector('.user-actions');
+    userActions.innerHTML = ''; // Очистка контейнера
+
+    if (user) {
+        // Проверка, авторизован ли пользователь
+        try {
+            // Получение данных пользователя из Firestore
+            const userDoc = await db.collection("users").doc(user.uid).get();
+
+            if (userDoc.exists) {
+                const userData = userDoc.data();
+
+                // Отображение никнейма и иконки профиля
+                const usernameSpan = document.createElement('span');
+                usernameSpan.innerText = userData.nickname || "No Username";
+
+                const profileIcon = document.createElement('img');
+                profileIcon.src = userData.photoURL || "https://via.placeholder.com/50";
+                profileIcon.alt = "Profile Picture";
+                profileIcon.style.width = "40px";
+                profileIcon.style.height = "40px";
+                profileIcon.style.borderRadius = "50%";
+                profileIcon.style.marginLeft = "10px";
+
+                // Добавление элементов в шапку
+                userActions.appendChild(usernameSpan);
+                userActions.appendChild(profileIcon);
+            } else {
+                console.error("User document does not exist.");
+            }
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    } else {
+        // Если пользователь не авторизован, показываем кнопку "Login/Register"
+        const loginButton = document.createElement('button');
+        loginButton.id = "login-register-btn";
+        loginButton.innerText = "Login/Register";
+        loginButton.onclick = () => {
+            window.location.href = "https://mostbadgeuser.github.io/Castify_CreateAccount.com";
+        };
+        userActions.appendChild(loginButton);
+    }
+});
 
 // Функция для отображения каналов
 async function displayChannels() {
@@ -35,26 +83,23 @@ async function displayChannels() {
         querySnapshot.forEach((doc) => {
             const userData = doc.data();
 
-            // Проверка наличия данных для канала
-            if (userData.nickname && userData.photoURL) {
-                // Создание карточки канала
-                const channelCard = document.createElement('div');
-                channelCard.classList.add('channel-card');
+            // Создание карточки канала
+            const channelCard = document.createElement('div');
+            channelCard.classList.add('channel-card');
 
-                // Добавление изображения профиля
-                const img = document.createElement('img');
-                img.src = userData.photoURL || "https://via.placeholder.com/150";
-                img.alt = userData.nickname || "No Username";
-                channelCard.appendChild(img);
+            // Добавление изображения профиля
+            const img = document.createElement('img');
+            img.src = userData.photoURL || "https://via.placeholder.com/150";
+            img.alt = userData.nickname || "No Username";
+            channelCard.appendChild(img);
 
-                // Добавление имени пользователя
-                const username = document.createElement('h3');
-                username.innerText = userData.nickname || "Unknown User";
-                channelCard.appendChild(username);
+            // Добавление имени пользователя
+            const username = document.createElement('h3');
+            username.innerText = userData.nickname || "Unknown User";
+            channelCard.appendChild(username);
 
-                // Добавление карточки канала в контейнер
-                channelsContainer.appendChild(channelCard);
-            }
+            // Добавление карточки канала в контейнер
+            channelsContainer.appendChild(channelCard);
         });
     } catch (error) {
         console.error("Error loading channels:", error);
