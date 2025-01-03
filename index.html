@@ -27,6 +27,9 @@
             <div class="search-container">
                 <input type="text" id="search-bar" placeholder="Search...">
                 <button id="search-button">Search</button>
+                <!-- Кнопки уведомлений и добавления видео, скрыты для неавторизованных пользователей -->
+                <button id="notifications-button" style="display: none;">Notifications</button>
+                <button id="add-video-button" style="display: none;">Add Video</button>
             </div>
             <div class="user-actions">
                 <!-- Здесь будет отображаться никнейм и иконка профиля пользователя -->
@@ -42,12 +45,6 @@
             <li id="newest-tab">Newest</li>
         </ul>
     </nav>
-
-    <!-- Кнопки уведомлений и добавления видео, скрыты для неавторизованных пользователей -->
-    <div id="notifications-container">
-        <button id="notifications-button" style="display: none;">Notifications</button>
-        <button id="add-video-button" style="display: none;">Add Video</button>
-    </div>
 
     <!-- Профиль, будет виден только для авторизованных пользователей -->
     <div id="profile-menu" class="dropdown-menu" style="display: none;">
@@ -75,13 +72,6 @@
 
     <!-- Подключение JavaScript -->
     <script src="app.js"></script>
-
-    <script>
-        // Добавляем обработчик события на кнопку "Login/Register"
-        document.getElementById('login-register-btn').addEventListener('click', function() {
-            window.location.href = 'https://mostbadgeuser.github.io/Castify_CreateAccount.com'; // Переход на страницу регистрации
-        });
-    </script>
 </body>
 </html>
 <!-- partial -->

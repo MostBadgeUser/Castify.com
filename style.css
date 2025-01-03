@@ -25,9 +25,11 @@ header {
 }
 
 .search-container {
-    flex: 1;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+    margin-right: 20px; /* Отступ справа для поиска */
 }
 
 #search-bar {
@@ -35,6 +37,7 @@ header {
     width: 300px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    margin-right: 10px; /* Отступ между полем поиска и кнопкой */
 }
 
 #search-button {
@@ -44,10 +47,24 @@ header {
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    margin-left: 10px;
 }
 
 #search-button:hover {
+    background-color: #45a049;
+}
+
+/* Обновленные стили для кнопок в поиске */
+#notifications-button, #add-video-button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+#notifications-button:hover, #add-video-button:hover {
     background-color: #45a049;
 }
 
@@ -94,9 +111,7 @@ nav {
 }
 
 /* Скрытие кнопок Profile, Notifications и Create Video, если пользователь не авторизован */
-#profile-button,
-#notifications-button,
-#create-video-button {
+#profile-button, #notifications-button, #add-video-button {
     display: none;
 }
 
