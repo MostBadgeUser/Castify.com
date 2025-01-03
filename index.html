@@ -11,158 +11,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Castify - Home</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- Firebase JS SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js"></script>
-  <!-- reCAPTCHA v2 API -->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <style>
-    /* Скрываем основной контент до прохождения reCAPTCHA */
-    #main-content {
-      display: none;
-    }
-    /* Центрируем контейнер с reCAPTCHA */
-    #recaptcha-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Castify</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Подключение Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
 </head>
 <body>
-  <!-- Контейнер для reCAPTCHA -->
-  <div id="recaptcha-container">
-    <h2>Please verify that you're not a robot</h2>
-    <div class="g-recaptcha" data-sitekey="6LdV16kqAAAAAI4x1RVMy9oBCbJkGG42Q1Wteoll"></div>
-    <button id="verify-button" onclick="verifyRecaptcha()">Verify</button>
-  </div>
-
-  <!-- Основной контент страницы (скрыт до прохождения reCAPTCHA) -->
-  <div id="main-content">
     <header>
-      <nav class="navbar">
-        <div class="logo">
-          <img src="https://i.ibb.co/nCqS9g0/rushfordclean-1.png" id="logo-img" alt="Castify Logo" onclick="reloadPage()">
+        <div class="navbar">
+            <img src="https://i.ibb.co/nCqS9g0/rushfordclean-1.png" id="logo" alt="Logo">
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Search...">
+                <button id="search-button">Search</button>
+            </div>
+            <button id="login-register-btn">Login/Register</button> <!-- Кнопка для регистрации и входа -->
         </div>
-        <ul class="nav-links">
-          <li><a href="#videos">Videos</a></li>
-          <li><a href="#channels">Channels</a></li>
-          <li><a href="#newest">Newest</a></li>
-          <li><a href="#community">Community</a></li>
-        </ul>
-        <div class="search-bar">
-          <input type="text" placeholder="Search...">
-          <button>🔍</button>
-        </div>
-        <div class="user-actions">
-          <img src="https://cdn.pixabay.com/photo/2020/10/31/06/28/youtube-bell-icon-5700370_1280.png" id="notification-icon" alt="Notifications" class="icon" onclick="toggleNotifications()" style="display:none;">
-          <span id="notification-count" class="hidden">0</span>
-          <div id="notification-popup" class="hidden">
-            <ul id="notifications-list">
-              <li>No notifications</li>
-            </ul>
-          </div>
-          <div id="user-profile" class="hidden">
-            <span id="username-display"></span> | <a href="profile.html">Profile</a>
-          </div>
-          <button id="login-button" onclick="toggleLoginState()">Login / Register</button>
-          <button id="upload-button" class="hidden" onclick="uploadVideo()">Upload Video</button>
-        </div>
-      </nav>
     </header>
 
-    <main>
-      <div id="left-ad" class="ad-banner left-ad hidden"></div>
-      <section id="welcome-section">
-        <h1>Welcome to Castify</h1>
-        <p>Your hub for discovering and sharing amazing videos.</p>
-      </section>
-      <section id="content">
-        <h2>Recommended for You</h2>
-        <div id="recommendations" class="recommendations-list"></div>
-      </section>
-      <div id="right-ad" class="ad-banner right-ad hidden"></div>
-    </main>
+    <nav>
+        <ul class="nav-links">
+            <li id="home-tab">Home</li>
+            <li id="channels-tab">Channels</li>
+            <li id="videos-tab">Videos</li>
+            <li id="newest-tab">Newest</li>
+        </ul>
+    </nav>
+
+    <section id="channels-section">
+        <h2>Channels You May Like</h2>
+        <div id="channels-container">
+            <!-- Каналы будут добавлены сюда -->
+            <p>Loading channels...</p>
+        </div>
+    </section>
 
     <footer>
-      <p>© 2024 Castify. All rights reserved.</p>
+        <p>&copy; 2025 Castify. All rights reserved.</p>
     </footer>
-  </div>
 
-  <script src="app.js"></script>
-  <script>
-    // Firebase Configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyCT0puD2gqEj4EYoeC5HtXYI95InuX4z9Q",
-      authDomain: "castify-5c0b6.firebaseapp.com",
-      projectId: "castify-5c0b6",
-      storageBucket: "castify-5c0b6.appspot.com",
-      messagingSenderId: "897995118693",
-      appId: "1:897995118693:web:708006eb85fdd77ab5ce8c"
-    };
+    <!-- Подключение JavaScript -->
+    <script src="app.js"></script>
 
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-    const storage = firebase.storage();
-
-    // Функция для проверки reCAPTCHA
-    function verifyRecaptcha() {
-      const recaptchaResponse = grecaptcha.getResponse();
-      if (recaptchaResponse.length === 0) {
-        alert("Please complete the CAPTCHA.");
-        return;
-      }
-
-      // Если reCAPTCHA пройдена, скрыть капчу и показать основной контент
-      console.log("reCAPTCHA completed: " + recaptchaResponse);  // Добавим вывод для отладки
-
-      // Скрываем reCAPTCHA и показываем основной контент
-      document.getElementById("recaptcha-container").style.display = "none";
-      document.getElementById("main-content").style.display = "block";
-      
-      // Можно добавить обработку токена здесь, если требуется аутентификация с Firebase
-      handleLoginWithRecaptcha(recaptchaResponse); 
-    }
-
-    // Логика для входа с использованием reCAPTCHA токена
-    function handleLoginWithRecaptcha(token) {
-      const credential = firebase.auth.GoogleAuthProvider.credential(null, token);
-      auth.signInWithCredential(credential).then((userCredential) => {
-        console.log("User logged in:", userCredential.user);
-        document.getElementById("login-button").textContent = "Logout";
-        document.getElementById("notification-icon").style.display = "block";
-        document.getElementById("upload-button").classList.remove("hidden");
-      }).catch((error) => {
-        console.error("Error logging in:", error);
-      });
-    }
-
-    // Проверка наличия видео в базе данных
-    function checkForVideos() {
-      db.collection("videos").get().then(snapshot => {
-        if (snapshot.empty) {
-          document.getElementById("upload-button").classList.add("hidden");
-        } else {
-          document.getElementById("upload-button").classList.remove("hidden");
-        }
-      });
-    }
-
-    // Когда страница загружается
-    window.onload = () => {
-      checkForVideos();
-    };
-  </script>
+    <script>
+        // Добавляем обработчик события на кнопку "Login/Register"
+        document.getElementById('login-register-btn').addEventListener('click', function() {
+            window.location.href = 'https://mostbadgeuser.github.io/Castify_CreateAccount.com'; // Переход на указанную страницу
+        });
+    </script>
 </body>
 </html>
 <!-- partial -->

@@ -1,4 +1,4 @@
-/* Основные стили */
+/* Общие стили */
 * {
   margin: 0;
   padding: 0;
@@ -6,12 +6,10 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  height: 100vh;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
 }
 
 a {
@@ -19,11 +17,15 @@ a {
   color: inherit;
 }
 
-/* Стиль для header */
+/* Шапка и навигация */
 header {
-  background-color: #333;
+  background: linear-gradient(135deg, #4CAF50, #2e7d32);
   color: #fff;
-  padding: 10px 20px;
+  padding: 15px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar {
@@ -32,233 +34,204 @@ header {
   align-items: center;
 }
 
-.navbar .logo img {
-  height: 40px;
+#logo {
+  max-height: 50px;
   cursor: pointer;
 }
 
-.navbar .nav-links {
+.search-container {
   display: flex;
-  list-style-type: none;
 }
 
-.navbar .nav-links li {
-  margin-right: 20px;
-}
-
-.navbar .nav-links li a {
-  color: #fff;
-  font-size: 18px;
-}
-
-.navbar .search-bar input {
-  padding: 5px;
+#search-bar {
+  padding: 8px;
   font-size: 16px;
   border-radius: 5px;
   border: none;
   margin-right: 10px;
 }
 
-.navbar .search-bar button {
-  background-color: #fff;
+#search-button {
+  padding: 8px 12px;
+  background-color: #4CAF50;
   border: none;
-  padding: 5px 10px;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
-.navbar .user-actions {
+#search-button:hover {
+  background-color: #45a049;
+}
+
+.user-actions {
   display: flex;
   align-items: center;
 }
 
-.navbar .user-actions button {
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  padding: 10px;
+#login-register-btn {
+  background-color: #fff;
+  color: #4CAF50;
+  padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  margin-left: 10px;
+  font-weight: bold;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-.navbar .user-actions .icon {
-  width: 30px;
+#login-register-btn:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#profile-icon {
+  position: relative;
   cursor: pointer;
-  margin-left: 10px;
 }
 
-.hidden {
-  display: none;
-}
-
-#notification-popup {
+#profile-menu {
   position: absolute;
   top: 50px;
-  right: 10px;
+  right: 0;
   background-color: #fff;
-  padding: 15px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  width: 250px;
-  display: none;
-}
-
-#notifications-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-#notifications-list li {
-  padding: 10px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-#notifications-list li:last-child {
-  border-bottom: none;
-}
-
-#user-profile {
-  margin-left: 10px;
-  color: #fff;
-}
-
-#user-profile a {
-  color: #fff;
-  text-decoration: underline;
-}
-
-#content {
-  padding: 30px;
-}
-
-.recommendations-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.recommendations-list div {
-  width: 250px;
-  margin: 15px;
-  border-radius: 10px;
-  background-color: #fff;
-  padding: 15px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.recommendations-list div img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.recommendations-list div h3 {
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-.recommendations-list div p {
-  font-size: 14px;
-  color: #666;
-}
-
-/* Кнопка "Upload Video" скрыта по умолчанию */
-#upload-button {
-  background-color: #f39c12;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
+  border: 1px solid #ddd;
   border-radius: 5px;
+  list-style: none;
+  padding: 10px 0;
+  display: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+#profile-menu li {
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #333;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
-  transition: background-color 0.3s;
+  transition: background 0.3s ease;
 }
 
-#upload-button:hover {
-  background-color: #e67e22;
+#profile-menu li:hover {
+  background-color: #f1f1f1;
 }
 
-/* Стиль для фона */
-body {
-  background-color: #f4f4f4;
-  background-image: url(''); /* Фон будет изменяться динамически */
-  background-size: cover;
-  background-position: center;
+/* Навигация */
+nav {
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
 }
 
-/* Стиль для раздела рекламы */
-.ad-banner {
-  background-color: #e1e1e1;
-  height: 300px;
-  margin-top: 20px;
+.nav-links {
+  display: flex;
+  justify-content: center;
+  list-style: none;
 }
 
-.left-ad {
-  float: left;
-  width: 25%;
-  margin-right: 20px;
+.nav-links li {
+  margin: 0 20px;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 10px;
+  transition: background-color 0.3s ease;
 }
 
-.right-ad {
-  float: right;
-  width: 25%;
-  margin-left: 20px;
+.nav-links li:hover {
+  background-color: #4CAF50;
+  border-radius: 5px;
 }
 
+/* Главный блок приветствия */
 #welcome-section {
+  background: linear-gradient(to right, #4CAF50, #81C784);
+  color: white;
   text-align: center;
-  padding: 50px;
-  background-color: #fff;
-  margin: 30px 0;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 80px 20px;
 }
 
 #welcome-section h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
+  font-size: 36px;
+  margin-bottom: 20px;
 }
 
 #welcome-section p {
   font-size: 18px;
-  color: #666;
+  margin-bottom: 0;
 }
 
-/* Стиль для футера */
-footer {
+/* Каналы */
+#channels-section {
+  padding: 40px 20px;
+  background-color: #fff;
+}
+
+#channels-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
   text-align: center;
-  padding: 20px;
+}
+
+#channels-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.channel-card {
+  width: 180px;
+  background-color: #f1f1f1;
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.channel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.channel-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+.channel-card h3 {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #333;
+}
+
+/* Футер */
+footer {
   background-color: #333;
-  color: #fff;
-}
-
-footer p {
+  color: white;
+  text-align: center;
+  padding: 10px 0;
   font-size: 14px;
+  margin-top: 20px;
 }
 
-/* Для мобильных устройств */
+/* Медиа-запросы для адаптивности */
 @media (max-width: 768px) {
-  .navbar .nav-links {
-    display: none;
+  #search-bar {
+    width: 200px;
   }
 
-  .navbar .user-actions {
+  .nav-links {
     flex-direction: column;
-    align-items: flex-start;
+    gap: 10px;
   }
 
-  .navbar .user-actions button {
-    margin-left: 0;
-  }
-
-  .recommendations-list {
-    flex-direction: column;
-  }
-
-  .left-ad, .right-ad {
+  .channel-card {
     width: 100%;
-    margin: 10px 0;
-  }
-
-  #upload-button {
-    width: 100%;
+    max-width: 300px;
   }
 }
