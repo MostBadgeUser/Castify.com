@@ -28,7 +28,9 @@
                 <input type="text" id="search-bar" placeholder="Search...">
                 <button id="search-button">Search</button>
             </div>
-            <button id="login-register-btn">Login/Register</button> <!-- Кнопка для регистрации и входа -->
+            <div class="user-actions">
+                <!-- Здесь будет отображаться никнейм и иконка профиля пользователя -->
+            </div>
         </div>
     </header>
 
@@ -40,6 +42,24 @@
             <li id="newest-tab">Newest</li>
         </ul>
     </nav>
+
+    <!-- Кнопки уведомлений и добавления видео, скрыты для неавторизованных пользователей -->
+    <div id="notifications-container">
+        <button id="notifications-button" style="display: none;">Notifications</button>
+        <button id="add-video-button" style="display: none;">Add Video</button>
+    </div>
+
+    <!-- Профиль, будет виден только для авторизованных пользователей -->
+    <div id="profile-menu" class="dropdown-menu" style="display: none;">
+        <button id="profile-button">Profile</button>
+        <div class="dropdown-content">
+            <a href="#" id="about-link">About</a>
+            <a href="#" id="my-channel-link">My Channel</a>
+            <a href="#" id="settings-link">Settings</a>
+            <a href="#" id="help-link">Help</a>
+            <a href="#" id="leave-link">Log Out</a>
+        </div>
+    </div>
 
     <section id="channels-section">
         <h2>Channels You May Like</h2>
@@ -59,7 +79,7 @@
     <script>
         // Добавляем обработчик события на кнопку "Login/Register"
         document.getElementById('login-register-btn').addEventListener('click', function() {
-            window.location.href = 'https://mostbadgeuser.github.io/Castify_CreateAccount.com'; // Переход на указанную страницу
+            window.location.href = 'https://mostbadgeuser.github.io/Castify_CreateAccount.com'; // Переход на страницу регистрации
         });
     </script>
 </body>

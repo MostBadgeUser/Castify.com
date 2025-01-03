@@ -17,12 +17,14 @@ const db = firebase.firestore();
 // Проверка состояния авторизации и извлечение данных пользователя
 auth.onAuthStateChanged(async (user) => {
     const userActions = document.querySelector('.user-actions');
+    const notificationsButton = document.getElementById('notifications-button');
+    const addVideoButton = document.getElementById('add-video-button');
+    const profileMenu = document.getElementById('profile-menu');
     userActions.innerHTML = ''; // Очистка контейнера
 
     if (user) {
-        // Проверка, авторизован ли пользователь
+        // Получение данных пользователя из Firestore
         try {
-            // Получение данных пользователя из Firestore
             const userDoc = await db.collection("users").doc(user.uid).get();
 
             if (userDoc.exists) {
@@ -43,6 +45,11 @@ auth.onAuthStateChanged(async (user) => {
                 // Добавление элементов в шапку
                 userActions.appendChild(usernameSpan);
                 userActions.appendChild(profileIcon);
+
+                // Отображение кнопок и меню профиля
+                notificationsButton.style.display = 'inline-block';
+                addVideoButton.style.display = 'inline-block';
+                profileMenu.style.display = 'block';
             } else {
                 console.error("User document does not exist.");
             }
@@ -50,7 +57,6 @@ auth.onAuthStateChanged(async (user) => {
             console.error("Error fetching user data:", error);
         }
     } else {
-        // Если пользователь не авторизован, показываем кнопку "Login/Register"
         const loginButton = document.createElement('button');
         loginButton.id = "login-register-btn";
         loginButton.innerText = "Login/Register";
@@ -58,26 +64,54 @@ auth.onAuthStateChanged(async (user) => {
             window.location.href = "https://mostbadgeuser.github.io/Castify_CreateAccount.com";
         };
         userActions.appendChild(loginButton);
+
+        // Скрываем кнопки для неавторизованных пользователей
+        notificationsButton.style.display = 'none';
+        addVideoButton.style.display = 'none';
+        profileMenu.style.display = 'none';
     }
 });
 
-// Функция для отображения каналов
-async function displayChannels() {
+// Обработчик кнопки уведомлений
+document.getElementById('notifications-button').addEventListener('click', () => {
+    alert("You have no new notifications.");
+});
+
+// Обработчик кнопки добавления видео
+document.getElementById('add-video-button').addEventListener('click', () => {
+    alert("Redirecting to the video upload page...");
+    // Здесь можно добавить редирект на страницу загрузки видео
+});
+
+// Обработчик кнопки выхода
+document.getElementById('leave-link').addEventListener('click', () => {
+    const confirmExit = confirm("Are you sure you want to log out?");
+    if (confirmExit) {
+        auth.signOut().then(() => {
+            alert("You have been logged out.");
+            window.location.href = "https://mostbadgeuser.github.io/Castify_CreateAccount.com"; // Переход на страницу регистрации
+        }).catch((error) => {
+            console.error("Error signing out:", error);
+            alert("An error occurred while logging out.");
+        });
+    }
+});
+
+// Функция для отображения каналов с обновлением в реальном времени
+function displayChannels() {
     const channelsContainer = document.getElementById('channels-container');
     channelsContainer.innerHTML = '<p>Loading channels...</p>'; // Сообщение при загрузке
 
-    try {
-        // Получение данных из коллекции "users"
-        const querySnapshot = await db.collection("users").get();
+    // Получение данных из коллекции "users" с реальным временем обновления
+    db.collection("users").onSnapshot((querySnapshot) => {
+        // Очистка контейнера
+        channelsContainer.innerHTML = '';
 
         // Проверка на пустую коллекцию
         if (querySnapshot.empty) {
             channelsContainer.innerHTML = "<p>No channels found in Firestore.</p>";
             return;
         }
-
-        // Очистка контейнера
-        channelsContainer.innerHTML = '';
 
         // Перебор документов в коллекции
         querySnapshot.forEach((doc) => {
@@ -101,10 +135,7 @@ async function displayChannels() {
             // Добавление карточки канала в контейнер
             channelsContainer.appendChild(channelCard);
         });
-    } catch (error) {
-        console.error("Error loading channels:", error);
-        channelsContainer.innerHTML = "<p>Error loading channels. Please try again later.</p>";
-    }
+    });
 }
 
 // Вызов функции при загрузке страницы
